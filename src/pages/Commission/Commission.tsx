@@ -12,11 +12,8 @@ interface ContentMap {
 }
 
 export function Commission() {
-  const [content, setContent] = useState<ContentMap>({
-    commission_meta: 'Commissions',
-    commission_title: 'Coming soon',
-    commission_description: "We're preparing something special. Stay tuned.",
-  });
+  const [content, setContent] = useState<ContentMap | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase
@@ -26,12 +23,17 @@ export function Commission() {
       .returns<{ key: string; value: string }[]>()
       .then(({ data }) => {
         if (data) {
-          const map: Record<string, string> = {};
+          const map = {} as ContentMap;
           data.forEach((row) => (map[row.key] = row.value));
-          setContent((prev) => ({ ...prev, ...map }));
+          setContent(map);
         }
+        setLoading(false);
       });
   }, []);
+
+  if (loading || !content) {
+    return <div style={{ minHeight: '60vh' }} />;
+  }
 
   return (
     <motion.div

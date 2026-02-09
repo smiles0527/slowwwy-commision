@@ -168,3 +168,17 @@
   border: 1px dashed var(--border);
   border-radius: inherit;
 }
+
+/* ── Loading / Empty states ── */
+.loading {
+  min-height: 80vh;
+  background: var(--background);
+}
+
+.galleryEmpty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted-foreground);
+  font-size: 14px;
+}

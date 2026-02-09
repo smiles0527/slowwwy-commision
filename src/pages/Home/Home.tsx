@@ -19,36 +19,38 @@ const SIZE_CLASS: Record<string, string> = {
 };
 
 export function Home() {
-  const [content, setContent] = useState<ContentMap>({
-    hero_meta: 'Keyboards',
-    hero_title: "Slowwwy's commission",
-    gallery_label: 'Gallery',
-  });
+  const [content, setContent] = useState<ContentMap | null>(null);
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch site content
-    supabase
-      .from('site_content')
-      .select('key, value')
-      .returns<{ key: string; value: string }[]>()
-      .then(({ data }) => {
-        if (data) {
-          const map: Record<string, string> = {};
-          data.forEach((row) => (map[row.key] = row.value));
-          setContent((prev) => ({ ...prev, ...map }));
-        }
-      });
+    async function load() {
+      const [contentRes, galleryRes] = await Promise.all([
+        supabase
+          .from('site_content')
+          .select('key, value')
+          .returns<{ key: string; value: string }[]>(),
+        supabase
+          .from('gallery_items')
+          .select('*')
+          .order('display_order', { ascending: true })
+          .returns<GalleryItem[]>(),
+      ]);
 
-    // Fetch gallery items
-    supabase
-      .from('gallery_items')
-      .select('*')
-      .order('display_order', { ascending: true })
-      .returns<GalleryItem[]>()
-      .then(({ data }) => {
-        if (data) setItems(data);
-      });
+      if (contentRes.data) {
+        const map = {} as ContentMap;
+        contentRes.data.forEach((row) => (map[row.key] = row.value));
+        setContent(map);
+      }
+
+      if (galleryRes.data) {
+        setItems(galleryRes.data);
+      }
+
+      setLoading(false);
+    }
+
+    load();
   }, []);
 
   // Group items by column_index
@@ -59,6 +61,10 @@ export function Home() {
   });
 
   const hasGallery = items.length > 0;
+
+  if (loading || !content) {
+    return <div className={styles.loading} />;
+  }
 
   return (
     <motion.div
@@ -133,33 +139,9 @@ export function Home() {
                 </div>
               ))
             ) : (
-              <>
-                {/* Placeholders when no Supabase data */}
-                <div className={styles.galleryColumn}>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemLarge}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 01</div>
-                  </motion.div>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemSmall}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 02</div>
-                  </motion.div>
-                </div>
-                <div className={styles.galleryColumn}>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemMedium}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 03</div>
-                  </motion.div>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemMedium}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 04</div>
-                  </motion.div>
-                </div>
-                <div className={styles.galleryColumn}>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemSmall}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 05</div>
-                  </motion.div>
-                  <motion.div className={`${styles.galleryItem} ${styles.galleryItemLarge}`} variants={staggerItem}>
-                    <div className={styles.placeholder}>Board 06</div>
-                  </motion.div>
-                </div>
-              </>
+              <div className={styles.galleryEmpty}>
+                <p>No images yet — add some from the admin panel.</p>
+              </div>
             )}
           </motion.div>
         </div>
