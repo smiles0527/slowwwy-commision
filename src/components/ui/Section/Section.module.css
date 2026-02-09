@@ -1,0 +1,29 @@
+/* Section — Layout Component */
+
+.section {
+  position: relative;
+  width: 100%;
+}
+
+.padded {
+  padding-block: var(--space-20);
+}
+
+@media (min-width: 768px) {
+  .padded {
+    padding-block: var(--space-32);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--space-10);
+  }
+}
