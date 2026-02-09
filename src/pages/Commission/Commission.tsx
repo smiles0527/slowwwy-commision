@@ -18,16 +18,10 @@ export function Commission() {
             initial="hidden"
             animate="visible"
           >
-            <p className={styles.label}>Now accepting</p>
-            <h1 className={styles.title}>Commission a build</h1>
+            <p className={styles.label}>Commissions</p>
+            <h1 className={styles.title}>Coming soon</h1>
             <p className={styles.description}>
-              Every Slowwwy keyboard is a one-of-one creation. Share your vision,
-              and we'll bring it to life with premium materials, hand-tuned
-              acoustics, and obsessive attention to detail.
-            </p>
-            <p className={styles.note}>
-              Reach out via Discord or email to start a conversation about your
-              dream board. Typical lead time is 4–8 weeks.
+              We're preparing something special. Stay tuned.
             </p>
           </motion.div>
         </div>
