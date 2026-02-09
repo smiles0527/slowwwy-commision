@@ -1,56 +1,73 @@
 /* ============================================
    SLOWWWY — Design Tokens
-   Premium keyboard storefront design system
+   Premium keyboard storefront — Soft Ivory palette
    ============================================ */
 
 :root {
-  /* ── Colors ── */
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #111111;
-  --color-bg-tertiary: #1a1a1a;
-  --color-bg-elevated: #222222;
+  /* ── Core Palette (Banini Soft Ivory) ── */
+  --background: #f5f2ee;
+  --foreground: #171614;
+  --border: #d7d0c7;
+  --input: #f9f6f2;
 
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #666666;
-  --color-text-accent: #e0c097;
+  --primary: #b48b5a;
+  --primary-foreground: #fdfbf8;
 
-  --color-accent-gold: #e0c097;
-  --color-accent-gold-hover: #d4a872;
-  --color-accent-silver: #c0c0c0;
-  --color-accent-warm: #f5e6d3;
+  --secondary: #ece3d6;
+  --secondary-foreground: #3d3327;
 
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.16);
-  --color-border-accent: rgba(224, 192, 151, 0.3);
+  --muted: #e4ddd3;
+  --muted-foreground: #7a6b59;
 
-  --color-overlay: rgba(0, 0, 0, 0.6);
+  --success: #3f7d5a;
+  --success-foreground: #ffffff;
+
+  --accent: #c6a57a;
+  --accent-foreground: #201910;
+
+  --destructive: #b44343;
+  --destructive-foreground: #ffffff;
+
+  --warning: #d28a3a;
+  --warning-foreground: #201910;
+
+  --card: #fdfbf8;
+  --card-foreground: #171614;
+
+  --sidebar: #f2e9dd;
+  --sidebar-foreground: #34271c;
+  --sidebar-primary: #d9c6aa;
+  --sidebar-primary-foreground: #7a552b;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
 
   /* ── Typography ── */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --text-xs: clamp(0.625rem, 0.6rem + 0.125vw, 0.75rem);
-  --text-sm: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
-  --text-base: clamp(0.875rem, 0.84rem + 0.18vw, 1rem);
-  --text-lg: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);
-  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2.5rem);
-  --text-3xl: clamp(2rem, 1.6rem + 2vw, 4rem);
-  --text-4xl: clamp(2.5rem, 1.8rem + 3.5vw, 6rem);
+  --text-xs: 0.6875rem;   /* 11px */
+  --text-sm: 0.8125rem;   /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 2rem;       /* 32px */
+  --text-3xl: 2.5rem;     /* 40px */
+  --text-4xl: 3.5rem;     /* 56px */
 
-  --leading-tight: 1.1;
+  --leading-tight: 1.05;
   --leading-snug: 1.3;
   --leading-normal: 1.6;
   --leading-relaxed: 1.8;
 
-  --tracking-tight: -0.02em;
+  --tracking-tight: -0.04em;
   --tracking-normal: 0;
-  --tracking-wide: 0.05em;
-  --tracking-wider: 0.1em;
-  --tracking-widest: 0.2em;
+  --tracking-wide: 0.16em;
+  --tracking-wider: 0.18em;
+  --tracking-widest: 0.24em;
 
-  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
@@ -69,48 +86,28 @@
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
-  --space-32: 8rem;
-  --space-40: 10rem;
-
-  /* ── Borders & Radius ── */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
 
   /* ── Shadows ── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px rgba(224, 192, 151, 0.15);
+  --shadow-sm: 0 1px 2px rgba(23, 22, 20, 0.06);
+  --shadow-md: 0 4px 12px rgba(23, 22, 20, 0.08);
+  --shadow-lg: 0 8px 32px rgba(23, 22, 20, 0.1);
 
   /* ── Transitions ── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
 
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 500ms;
-  --duration-slower: 800ms;
 
   /* ── Layout ── */
-  --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-  --container-2xl: 1440px;
-
+  --container-max: 1440px;
+  --container-padding: 48px;
   --header-height: 72px;
 
   /* ── Z-index ── */
   --z-base: 1;
-  --z-dropdown: 100;
   --z-sticky: 200;
   --z-overlay: 300;
   --z-modal: 400;
-  --z-toast: 500;
 }
