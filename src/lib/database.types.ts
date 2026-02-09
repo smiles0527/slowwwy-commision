@@ -93,6 +93,38 @@ export interface Database {
         };
         Relationships: [];
       };
+      about_sections: {
+        Row: {
+          id: string;
+          section_type: 'hero' | 'bio' | 'philosophy' | 'discord' | 'links';
+          title: string;
+          content: Record<string, unknown>;
+          display_order: number;
+          visible: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          section_type: 'hero' | 'bio' | 'philosophy' | 'discord' | 'links';
+          title: string;
+          content: Record<string, unknown>;
+          display_order?: number;
+          visible?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          section_type?: 'hero' | 'bio' | 'philosophy' | 'discord' | 'links';
+          title?: string;
+          content?: Record<string, unknown>;
+          display_order?: number;
+          visible?: boolean;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -113,3 +145,7 @@ export type SiteContentUpdate = Database['public']['Tables']['site_content']['Up
 export type CommissionSection = Database['public']['Tables']['commission_sections']['Row'];
 export type CommissionSectionInsert = Database['public']['Tables']['commission_sections']['Insert'];
 export type CommissionSectionUpdate = Database['public']['Tables']['commission_sections']['Update'];
+
+export type AboutSection = Database['public']['Tables']['about_sections']['Row'];
+export type AboutSectionInsert = Database['public']['Tables']['about_sections']['Insert'];
+export type AboutSectionUpdate = Database['public']['Tables']['about_sections']['Update'];

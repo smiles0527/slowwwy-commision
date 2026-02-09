@@ -8,12 +8,15 @@ import { Login } from '@pages/Admin/Login';
 import { GalleryManager } from '@pages/Admin/GalleryManager';
 import { ContentEditor } from '@pages/Admin/ContentEditor';
 import { CommissionEditor } from '@pages/Admin/CommissionEditor';
+import { AboutEditor } from '@pages/Admin/AboutEditor';
+import { About } from '@pages/About';
 
 export const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: '/', element: <Home /> },
+      { path: '/about', element: <About /> },
       { path: '/commission', element: <Commission /> },
     ],
   },
@@ -32,6 +35,7 @@ export const router = createBrowserRouter([
       { index: true, element: <GalleryManager /> },
       { path: 'content', element: <ContentEditor /> },
       { path: 'commissions', element: <CommissionEditor /> },
+      { path: 'about', element: <AboutEditor /> },
     ],
   },
 ]);

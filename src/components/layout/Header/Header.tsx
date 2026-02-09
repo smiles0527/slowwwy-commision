@@ -21,11 +21,14 @@ export function Header() {
           <span className={styles.logoText}>S L O W W W Y</span>
         </Link>
 
-        <div className={styles.navRight}>
-          <Link to="/commission" className={styles.commissionLink}>
+        <nav className={styles.navRight}>
+          <Link to="/about" className={styles.navLink}>
+            About
+          </Link>
+          <Link to="/commission" className={styles.navLink}>
             Commission
           </Link>
-        </div>
+        </nav>
       </div>
     </motion.header>
   );

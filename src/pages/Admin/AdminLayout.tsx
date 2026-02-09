@@ -39,6 +39,12 @@ export function AdminLayout() {
           >
             Commissions
           </NavLink>
+          <NavLink
+            to="/admin/about"
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+          >
+            About
+          </NavLink>
         </nav>
 
         <div className={styles.sidebarFooter}>
