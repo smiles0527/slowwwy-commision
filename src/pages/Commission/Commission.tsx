@@ -7,15 +7,20 @@ import styles from './Commission.module.css';
 
 /* ── Typed content shapes ── */
 interface StatusContent { status: string; note: string }
-interface IntroContent { text: string }
+interface IntroContent { text: string; image_url?: string; image_alt?: string }
 interface ServicesContent { items: string[] }
 interface PricingTier { label: string; price: string }
-interface PricingContent { note: string; tiers: PricingTier[]; extras: PricingTier[] }
+interface PricingContent { note: string; shipping_note?: string; tiers: PricingTier[]; extras: PricingTier[] }
 interface StepItem { step: number; title: string; description: string }
 interface StepsContent { items: StepItem[] }
 interface FAQItem { question: string; answer: string }
 interface FAQContent { items: FAQItem[] }
 interface LinksContent { form_url: string; form_label: string; note: string }
+
+/* ── Helpers ── */
+function findByType(sections: CommissionSection[], type: string) {
+  return sections.find((s) => s.section_type === type) ?? null;
+}
 
 /* ── FAQ Accordion ── */
 function FAQAccordion({ items }: { items: FAQItem[] }) {
@@ -25,7 +30,7 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
       {items.map((item, i) => (
         <div key={i} className={styles.faqItem}>
           <button
-            className={`${styles.faqQuestion} ${openIdx === i ? styles.faqOpen : ''}`}
+            className={styles.faqQuestion}
             onClick={() => setOpenIdx(openIdx === i ? null : i)}
           >
             <span>{item.question}</span>
@@ -47,127 +52,15 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
   );
 }
 
-/* ── Section renderers ── */
-function StatusBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as StatusContent;
-  const isOpen = c.status?.toLowerCase() === 'open';
+/* ── Check icon ── */
+function CheckIcon() {
   return (
-    <div className={styles.statusBar}>
-      <span className={`${styles.statusDot} ${isOpen ? styles.statusOpen : styles.statusClosed}`} />
-      <span className={styles.statusLabel}>
-        {section.title}: <strong>{c.status}</strong>
-      </span>
-      {c.note && <span className={styles.statusNote}>{c.note}</span>}
-    </div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--muted-foreground)' }}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
   );
 }
-
-function IntroBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as IntroContent;
-  return (
-    <div className={styles.block}>
-      <h2 className={styles.blockTitle}>{section.title}</h2>
-      <p className={styles.introText}>{c.text}</p>
-    </div>
-  );
-}
-
-function ServicesBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as ServicesContent;
-  return (
-    <div className={styles.block}>
-      <h2 className={styles.blockTitle}>{section.title}</h2>
-      <ul className={styles.servicesList}>
-        {c.items?.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
-    </div>
-  );
-}
-
-function PricingBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as PricingContent;
-  return (
-    <div className={styles.block}>
-      <h2 className={styles.blockTitle}>{section.title}</h2>
-      {c.note && <p className={styles.pricingNote}>{c.note}</p>}
-      <div className={styles.pricingGroup}>
-        <h3 className={styles.pricingSubhead}>Assembly</h3>
-        <div className={styles.pricingGrid}>
-          {c.tiers?.map((t, i) => (
-            <div key={i} className={styles.pricingCard}>
-              <span className={styles.pricingLabel}>{t.label}</span>
-              <span className={styles.pricingPrice}>{t.price}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {c.extras?.length > 0 && (
-        <div className={styles.pricingGroup}>
-          <h3 className={styles.pricingSubhead}>Add-ons &amp; Supplies</h3>
-          <div className={styles.pricingGrid}>
-            {c.extras.map((e, i) => (
-              <div key={i} className={styles.pricingCard}>
-                <span className={styles.pricingLabel}>{e.label}</span>
-                <span className={styles.pricingPrice}>{e.price}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function StepsBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as StepsContent;
-  return (
-    <div className={styles.block}>
-      <h2 className={styles.blockTitle}>{section.title}</h2>
-      <div className={styles.stepsGrid}>
-        {c.items?.map((item) => (
-          <div key={item.step} className={styles.stepCard}>
-            <span className={styles.stepNumber}>{item.step}</span>
-            <h3 className={styles.stepTitle}>{item.title}</h3>
-            <p className={styles.stepDesc}>{item.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FAQBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as FAQContent;
-  return (
-    <div className={styles.block}>
-      <h2 className={styles.blockTitle}>{section.title}</h2>
-      <FAQAccordion items={c.items ?? []} />
-    </div>
-  );
-}
-
-function LinksBlock({ section }: { section: CommissionSection }) {
-  const c = section.content as unknown as LinksContent;
-  if (!c.form_url) return null;
-  return (
-    <div className={`${styles.block} ${styles.ctaBlock}`}>
-      {c.note && <p className={styles.ctaNote}>{c.note}</p>}
-      <a href={c.form_url} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-        {c.form_label || 'Request a Commission'}
-      </a>
-    </div>
-  );
-}
-
-const RENDERERS: Record<string, React.FC<{ section: CommissionSection }>> = {
-  status: StatusBlock,
-  intro: IntroBlock,
-  services: ServicesBlock,
-  pricing: PricingBlock,
-  steps: StepsBlock,
-  faq: FAQBlock,
-  links: LinksBlock,
-};
 
 /* ── Main Page ── */
 export function Commission() {
@@ -191,30 +84,200 @@ export function Commission() {
     return <div style={{ minHeight: '60vh' }} />;
   }
 
+  const status = findByType(sections, 'status');
+  const intro = findByType(sections, 'intro');
+  const services = findByType(sections, 'services');
+  const pricing = findByType(sections, 'pricing');
+  const steps = findByType(sections, 'steps');
+  const faq = findByType(sections, 'faq');
+  const links = findByType(sections, 'links');
+
+  const statusC = status?.content as unknown as StatusContent | undefined;
+  const introC = intro?.content as unknown as IntroContent | undefined;
+  const servicesC = services?.content as unknown as ServicesContent | undefined;
+  const pricingC = pricing?.content as unknown as PricingContent | undefined;
+  const stepsC = steps?.content as unknown as StepsContent | undefined;
+  const faqC = faq?.content as unknown as FAQContent | undefined;
+  const linksC = links?.content as unknown as LinksContent | undefined;
+
+  const isOpen = statusC?.status?.toLowerCase() === 'open';
+
   return (
     <motion.div variants={pageTransition} initial="initial" animate="animate" exit="exit">
-      <div className={`container ${styles.page}`}>
-        <motion.div variants={fadeUp} initial="hidden" animate="visible">
-          <p className={styles.meta}>Commissions</p>
-          <h1 className={styles.pageTitle}>Build Service</h1>
-        </motion.div>
+      <div className={styles.page}>
 
-        <motion.div
-          className={styles.sections}
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          {sections.map((section) => {
-            const Renderer = RENDERERS[section.section_type];
-            if (!Renderer) return null;
-            return (
-              <motion.div key={section.id} variants={staggerItem}>
-                <Renderer section={section} />
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        {/* ── Hero ── */}
+        {status && (
+          <motion.header className={styles.hero} variants={fadeUp} initial="hidden" animate="visible">
+            <div className={styles.statusBadge}>
+              <span className={`${styles.statusDot} ${isOpen ? styles.statusOpen : styles.statusClosed}`} />
+              <span>{status.title}: {statusC?.status}</span>
+            </div>
+            <h1 className={styles.heroTitle}>Commission</h1>
+            {statusC?.note && <p className={styles.heroSubtitle}>{statusC.note}</p>}
+          </motion.header>
+        )}
+
+        {/* ── About & Services ── */}
+        {(intro || services) && (
+          <motion.section
+            className={styles.section}
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className={styles.grid2col}>
+              {/* Left — About */}
+              {intro && (
+                <motion.div className={styles.textBlock} variants={staggerItem}>
+                  <span className={styles.sectionLabel}>About</span>
+                  <h2 className={styles.sectionTitle}>{intro.title}</h2>
+                  <p className={styles.textParagraph}>{introC?.text}</p>
+                  {introC?.image_url && (
+                    <div className={styles.introImage}>
+                      <img
+                        src={introC.image_url}
+                        alt={introC.image_alt || 'Build process'}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Right — Services */}
+              {services && (
+                <motion.div className={styles.listBlock} variants={staggerItem}>
+                  <span className={styles.sectionLabel}>Services</span>
+                  <h2 className={styles.sectionTitle}>{services.title}</h2>
+                  <ul>
+                    {servicesC?.items?.map((item, i) => (
+                      <li key={i}>
+                        <span>{item}</span>
+                        <CheckIcon />
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── Pricing ── */}
+        {pricing && (
+          <motion.section className={styles.section} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionLabel}>Rates</span>
+              <h2 className={styles.sectionTitle}>{pricing.title}</h2>
+              {pricingC?.note && <p className={styles.sectionNote}>{pricingC.note}</p>}
+            </div>
+
+            <div className={styles.pricingGrid}>
+              {/* Assembly column */}
+              <div>
+                <h3 className={styles.pricingCategoryTitle}>Assembly</h3>
+                {pricingC?.tiers?.map((t, i) => (
+                  <div key={i} className={styles.priceRow}>
+                    <span>{t.label}</span>
+                    <span>{t.price}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Add-ons column */}
+              <div>
+                <h3 className={styles.pricingCategoryTitle}>Add-ons &amp; Supplies</h3>
+                {pricingC?.extras?.map((e, i) => (
+                  <div key={i} className={styles.priceRow}>
+                    <span>{e.label}</span>
+                    <span>{e.price}</span>
+                  </div>
+                ))}
+                {pricingC?.shipping_note && (
+                  <div className={styles.pricingCallout}>
+                    <p><strong>Note:</strong> {pricingC.shipping_note}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── Process + Form ── */}
+        {steps && (
+          <motion.section className={styles.section} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionLabel}>Process</span>
+              <h2 className={styles.sectionTitle}>{steps.title}</h2>
+            </div>
+
+            <div className={styles.processGrid}>
+              {stepsC?.items?.map((item) => (
+                <div key={item.step} className={styles.processStep}>
+                  <div className={styles.stepNumber}>{item.step}</div>
+                  <h3 className={styles.stepTitle}>{item.title}</h3>
+                  <p className={styles.stepDesc}>{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Commission Request Form */}
+            {links && (
+              <div className={styles.formContainer}>
+                <h3 className={styles.formTitle}>Commission Request Form</h3>
+                {linksC?.form_url ? (
+                  <div className={styles.formCta}>
+                    {linksC.note && <p className={styles.formNote}>{linksC.note}</p>}
+                    <a
+                      href={linksC.form_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.btnSubmit}
+                    >
+                      {linksC.form_label || 'Submit Request'}
+                    </a>
+                  </div>
+                ) : (
+                  <>
+                    <div className={styles.formGrid}>
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Name</label>
+                        <div className={styles.formInput}>Your Name</div>
+                      </div>
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Email</label>
+                        <div className={styles.formInput}>email@example.com</div>
+                      </div>
+                    </div>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Project Details</label>
+                      <div className={`${styles.formInput} ${styles.formTextarea}`}>
+                        Tell me about your build...
+                      </div>
+                    </div>
+                    <button className={styles.btnSubmit} disabled>Submit Request</button>
+                    <p className={styles.formPlaceholderNote}>
+                      Form coming soon — reach out via Discord or Instagram in the meantime.
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
+          </motion.section>
+        )}
+
+        {/* ── FAQ ── */}
+        {faq && (
+          <motion.section className={styles.section} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionLabel}>Help</span>
+              <h2 className={styles.sectionTitle}>{faq.title}</h2>
+            </div>
+            <FAQAccordion items={faqC?.items ?? []} />
+          </motion.section>
+        )}
+
       </div>
     </motion.div>
   );

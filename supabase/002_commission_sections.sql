@@ -45,16 +45,16 @@ insert into public.commission_sections (section_type, title, display_order, cont
   '{"status": "open", "note": "Currently accepting new commissions."}'
 ),
 (
-  'intro', 'About', 1,
-  '{"text": "Slowwwy offers a premium keyboard build service. Every build is crafted with care, attention to detail, and a commitment to quality. Whether you already have your parts or need guidance, I am here to help bring your dream keyboard to life."}'
+  'intro', 'Build Service', 1,
+  '{"text": "Slowwwy offers a premium keyboard build service. Every build is crafted with care, attention to detail, and a commitment to quality. Whether you already have your parts or need guidance, I am here to help bring your dream keyboard to life.", "image_url": "", "image_alt": "Build process"}'
 ),
 (
   'services', 'What I Can Do', 2,
-  '{"items": ["Soldering (switches, through-hole components)", "Desoldering and rebuilds", "Case assembly and tuning", "Stabilizer lubing and tuning", "Switch modification (lubing, filming)", "PCB testing and basic programming", "Repair services (case-dependent)", "Other — feel free to ask"]}'
+  '{"items": ["Soldering (switches, through-hole)", "Desoldering and rebuilds", "Case assembly and tuning", "Stabilizer lubing and tuning", "Switch modification (lubing, filming)", "PCB testing and basic programming", "Repair services (case-dependent)", "Other — feel free to ask"]}'
 ),
 (
   'pricing', 'Pricing', 3,
-  '{"note": "Pricing is based on time and labor. Prices do not include extra supplies, shipping, or fees.", "tiers": [{"label": "Macropads / Numpads", "price": "$50"}, {"label": "40%", "price": "$65"}, {"label": "60–65%", "price": "$80"}, {"label": "75%", "price": "$90"}, {"label": "TKL", "price": "$95"}, {"label": "Full-size / 1800", "price": "$105"}], "extras": [{"label": "Desoldering (add-on)", "price": "from $35"}, {"label": "Switch modding", "price": "~$1.25/switch"}, {"label": "Stabilizer kit", "price": "$18–26"}, {"label": "Lubricant", "price": "$8–13"}]}'
+  '{"note": "Pricing is based on time and labor. Prices do not include extra supplies, shipping, or fees.", "shipping_note": "Return shipping is calculated based on weight and destination upon completion.", "tiers": [{"label": "Macropads / Numpads", "price": "$50"}, {"label": "40%", "price": "$65"}, {"label": "60–65%", "price": "$80"}, {"label": "75%", "price": "$90"}, {"label": "TKL", "price": "$95"}, {"label": "Full-size / 1800", "price": "$105"}], "extras": [{"label": "Desoldering (add-on)", "price": "from $35"}, {"label": "Switch modding", "price": "~$1.25/switch"}, {"label": "Stabilizer kit", "price": "$18–26"}, {"label": "Lubricant", "price": "$8–13"}]}'
 ),
 (
   'steps', 'How It Works', 4,
@@ -66,5 +66,5 @@ insert into public.commission_sections (section_type, title, display_order, cont
 ),
 (
   'links', 'Commission Form', 6,
-  '{"form_url": "", "form_label": "Request a Commission", "note": "Please read everything above before submitting."}'
+  '{"form_url": "", "form_label": "Submit Request", "note": "Please read everything above before submitting."}'
 );

@@ -234,15 +234,15 @@ export function CommissionEditor() {
 function ContentHelper({ type }: { type: string }) {
   const hints: Record<string, string> = {
     status: '{ "status": "open" or "closed", "note": "..." }',
-    intro: '{ "text": "Your intro paragraph..." }',
+    intro: '{ "text": "Your intro paragraph...", "image_url": "https://... (optional)", "image_alt": "alt text (optional)" }',
     services: '{ "items": ["Service 1", "Service 2", ...] }',
     pricing:
-      '{ "note": "...", "tiers": [{ "label": "60%", "price": "$80" }], "extras": [{ "label": "Lube", "price": "$10" }] }',
+      '{ "note": "...", "shipping_note": "... (optional)", "tiers": [{ "label": "60%", "price": "$80" }], "extras": [{ "label": "Lube", "price": "$10" }] }',
     steps:
       '{ "items": [{ "step": 1, "title": "...", "description": "..." }] }',
     faq: '{ "items": [{ "question": "...", "answer": "..." }] }',
     links:
-      '{ "form_url": "https://...", "form_label": "Request a Commission", "note": "..." }',
+      '{ "form_url": "https://... (leave empty for placeholder form)", "form_label": "Submit Request", "note": "..." }',
   };
 
   return (
