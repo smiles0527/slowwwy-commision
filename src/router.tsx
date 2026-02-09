@@ -7,6 +7,7 @@ import { AdminLayout } from '@pages/Admin/AdminLayout';
 import { Login } from '@pages/Admin/Login';
 import { GalleryManager } from '@pages/Admin/GalleryManager';
 import { ContentEditor } from '@pages/Admin/ContentEditor';
+import { CommissionEditor } from '@pages/Admin/CommissionEditor';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <GalleryManager /> },
       { path: 'content', element: <ContentEditor /> },
+      { path: 'commissions', element: <CommissionEditor /> },
     ],
   },
 ]);

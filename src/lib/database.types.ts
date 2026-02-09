@@ -61,6 +61,38 @@ export interface Database {
         };
         Relationships: [];
       };
+      commission_sections: {
+        Row: {
+          id: string;
+          section_type: 'status' | 'intro' | 'services' | 'pricing' | 'steps' | 'faq' | 'links';
+          title: string;
+          content: Record<string, unknown>;
+          display_order: number;
+          visible: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          section_type: 'status' | 'intro' | 'services' | 'pricing' | 'steps' | 'faq' | 'links';
+          title: string;
+          content: Record<string, unknown>;
+          display_order?: number;
+          visible?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          section_type?: 'status' | 'intro' | 'services' | 'pricing' | 'steps' | 'faq' | 'links';
+          title?: string;
+          content?: Record<string, unknown>;
+          display_order?: number;
+          visible?: boolean;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -77,3 +109,7 @@ export type GalleryItemUpdate = Database['public']['Tables']['gallery_items']['U
 export type SiteContent = Database['public']['Tables']['site_content']['Row'];
 export type SiteContentInsert = Database['public']['Tables']['site_content']['Insert'];
 export type SiteContentUpdate = Database['public']['Tables']['site_content']['Update'];
+
+export type CommissionSection = Database['public']['Tables']['commission_sections']['Row'];
+export type CommissionSectionInsert = Database['public']['Tables']['commission_sections']['Insert'];
+export type CommissionSectionUpdate = Database['public']['Tables']['commission_sections']['Update'];
