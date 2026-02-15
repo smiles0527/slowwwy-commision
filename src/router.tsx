@@ -9,7 +9,9 @@ import { GalleryManager } from '@pages/Admin/GalleryManager';
 import { ContentEditor } from '@pages/Admin/ContentEditor';
 import { CommissionEditor } from '@pages/Admin/CommissionEditor';
 import { AboutEditor } from '@pages/Admin/AboutEditor';
+import { PastWorksEditor } from '@pages/Admin/PastWorksEditor';
 import { About } from '@pages/About';
+import { PastWorks } from '@pages/PastWorks';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +19,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/about', element: <About /> },
+      { path: '/past-works', element: <PastWorks /> },
       { path: '/commission', element: <Commission /> },
     ],
   },
@@ -36,6 +39,7 @@ export const router = createBrowserRouter([
       { path: 'content', element: <ContentEditor /> },
       { path: 'commissions', element: <CommissionEditor /> },
       { path: 'about', element: <AboutEditor /> },
+      { path: 'past-works', element: <PastWorksEditor /> },
     ],
   },
 ]);

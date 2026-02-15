@@ -25,6 +25,9 @@ export function Header() {
           <Link to="/about" className={styles.navLink}>
             About
           </Link>
+          <Link to="/past-works" className={styles.navLink}>
+            Past Works
+          </Link>
           <Link to="/commission" className={styles.navLink}>
             Commission
           </Link>

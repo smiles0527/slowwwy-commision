@@ -125,6 +125,53 @@ export interface Database {
         };
         Relationships: [];
       };
+      past_works: {
+        Row: {
+          id: string;
+          title: string;
+          slug: string;
+          description: string;
+          cover_image: string;
+          images: string[];
+          specs: Record<string, string>;
+          tags: string[];
+          display_order: number;
+          visible: boolean;
+          completed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          slug: string;
+          description?: string;
+          cover_image?: string;
+          images?: string[];
+          specs?: Record<string, string>;
+          tags?: string[];
+          display_order?: number;
+          visible?: boolean;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          slug?: string;
+          description?: string;
+          cover_image?: string;
+          images?: string[];
+          specs?: Record<string, string>;
+          tags?: string[];
+          display_order?: number;
+          visible?: boolean;
+          completed_at?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -149,3 +196,7 @@ export type CommissionSectionUpdate = Database['public']['Tables']['commission_s
 export type AboutSection = Database['public']['Tables']['about_sections']['Row'];
 export type AboutSectionInsert = Database['public']['Tables']['about_sections']['Insert'];
 export type AboutSectionUpdate = Database['public']['Tables']['about_sections']['Update'];
+
+export type PastWork = Database['public']['Tables']['past_works']['Row'];
+export type PastWorkInsert = Database['public']['Tables']['past_works']['Insert'];
+export type PastWorkUpdate = Database['public']['Tables']['past_works']['Update'];
